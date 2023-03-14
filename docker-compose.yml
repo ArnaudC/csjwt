@@ -1,0 +1,21 @@
+version: "3.9"
+
+networks:
+  default:
+    name: external-network
+    driver: bridge
+
+services:
+  postgres_docker:
+    container_name: postgres_docker
+    image: postgres:15.2-alpine
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mysecretpassword}
+    expose:
+      - 5432
+    ports:
+      - 40682:5432
+    # restart: unless-stopped
