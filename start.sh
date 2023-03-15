@@ -12,6 +12,8 @@ printArguments() {
 init() {
     docker-compose down --rmi all --volumes --remove-orphans
     docker-compose up -d
+    cd ./ApiWithAuth
+    dotnet run &
     logs
 }
 
