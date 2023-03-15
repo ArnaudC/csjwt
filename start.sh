@@ -13,8 +13,24 @@ init() {
     docker-compose down --rmi all --volumes --remove-orphans
     docker-compose up -d
     cd ./ApiWithAuth
+    killall dotnet || true
+    migrate
     dotnet run &
     logs
+}
+
+installef() {
+    dotnet tool install --global dotnet-ef
+}
+
+makemigrations() {
+    installef
+    dotnet ef migrations add migrationMsg
+}
+
+migrate() {
+    installef
+    dotnet ef database update
 }
 
 logs() {
